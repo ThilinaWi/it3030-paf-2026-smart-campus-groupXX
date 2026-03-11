@@ -15,4 +15,5 @@ public class ResourceStatusUpdateDTO {
     public void setIsActive(Boolean active) {
         isActive = active;
     }
+    
 }
