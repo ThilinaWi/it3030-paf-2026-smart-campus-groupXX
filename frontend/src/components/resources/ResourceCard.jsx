@@ -13,6 +13,7 @@ const ResourceCard = ({ resource, isAdmin, onDelete, onToggleStatus }) => {
             default: return '#95a5a6';
         }
     };
+    
 
     const getStatusIcon = (status) => {
         switch (status) {
@@ -20,7 +21,7 @@ const ResourceCard = ({ resource, isAdmin, onDelete, onToggleStatus }) => {
             case 'OUT_OF_SERVICE': return '🔴';
             case 'MAINTENANCE': return '🟡';
             default: return '⚪';
-            
+
         }
     };
 
