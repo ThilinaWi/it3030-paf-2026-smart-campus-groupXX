@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useBookings } from '../hooks/useBookings';
 import BookingCard from '../components/BookingCard';
 import { HiOutlineCalendar, HiOutlineRefresh, HiOutlineX } from 'react-icons/hi';
@@ -9,21 +9,47 @@ import { HiOutlineCalendar, HiOutlineRefresh, HiOutlineX } from 'react-icons/hi'
 export default function AdminBookingsPage() {
   const [successMsg, setSuccessMsg] = useState(null);
   const [filter, setFilter] = useState('ALL');
+  const [processingBookingId, setProcessingBookingId] = useState(null);
   const [decisionModal, setDecisionModal] = useState({
     open: false,
     bookingId: null,
-    action: null,
     reason: '',
     error: null,
   });
   const { bookings, loading, error, refresh, updateStatus } = useBookings(true, filter);
 
-  const openDecisionModal = (bookingId, action) => {
+  useEffect(() => {
+    const pollInterval = window.setInterval(() => {
+      if (!decisionModal.open) {
+        refresh({ silent: true });
+      }
+    }, 8000);
+
+    const handleWindowFocus = () => {
+      refresh({ silent: true });
+    };
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        refresh({ silent: true });
+      }
+    };
+
+    window.addEventListener('focus', handleWindowFocus);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.clearInterval(pollInterval);
+      window.removeEventListener('focus', handleWindowFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [decisionModal.open, refresh]);
+
+  const openDecisionModal = (bookingId) => {
     setDecisionModal({
       open: true,
       bookingId,
-      action,
-      reason: action === 'APPROVED' ? 'Approved by admin' : '',
+      reason: '',
       error: null,
     });
   };
@@ -32,17 +58,32 @@ export default function AdminBookingsPage() {
     setDecisionModal({
       open: false,
       bookingId: null,
-      action: null,
       reason: '',
       error: null,
     });
   };
 
-  const submitDecision = async () => {
-    const { bookingId, action, reason } = decisionModal;
-    if (!bookingId || !action) return;
+  const handleApprove = async (bookingId) => {
+    setProcessingBookingId(bookingId);
+    try {
+      await updateStatus(bookingId, 'APPROVED', null);
+      await refresh({ silent: true });
+      setSuccessMsg('Booking approved successfully.');
+      setTimeout(() => setSuccessMsg(null), 4000);
+    } catch (err) {
+      const message = err.response?.data?.message || 'Failed to approve booking.';
+      setSuccessMsg(message);
+      setTimeout(() => setSuccessMsg(null), 4000);
+    } finally {
+      setProcessingBookingId(null);
+    }
+  };
 
-    if (action === 'REJECTED' && !reason.trim()) {
+  const submitDecision = async () => {
+    const { bookingId, reason } = decisionModal;
+    if (!bookingId) return;
+
+    if (!reason.trim()) {
       setDecisionModal((prev) => ({
         ...prev,
         error: 'Rejection reason is required.',
@@ -50,9 +91,11 @@ export default function AdminBookingsPage() {
       return;
     }
 
+    setProcessingBookingId(bookingId);
     try {
-      await updateStatus(bookingId, action, reason.trim());
-      setSuccessMsg(action === 'APPROVED' ? 'Booking approved successfully.' : 'Booking rejected.');
+      await updateStatus(bookingId, 'REJECTED', reason.trim());
+      await refresh({ silent: true });
+      setSuccessMsg('Booking rejected.');
       setTimeout(() => setSuccessMsg(null), 4000);
       closeDecisionModal();
     } catch (err) {
@@ -61,6 +104,8 @@ export default function AdminBookingsPage() {
         ...prev,
         error: message,
       }));
+    } finally {
+      setProcessingBookingId(null);
     }
   };
 
@@ -105,7 +150,7 @@ export default function AdminBookingsPage() {
         <div className="booking-form-overlay" id="admin-decision-modal-overlay">
           <div className="booking-form-modal" id="admin-decision-modal">
             <div className="modal-header">
-              <h2>{decisionModal.action === 'APPROVED' ? 'Approve Booking' : 'Reject Booking'}</h2>
+              <h2>Reject Booking</h2>
               <button className="modal-close" onClick={closeDecisionModal}>
                 <HiOutlineX size={20} />
               </button>
@@ -119,7 +164,7 @@ export default function AdminBookingsPage() {
 
             <div className="booking-form" style={{ paddingTop: '1rem' }}>
               <p style={{ color: 'var(--gray-600)', marginBottom: '0.25rem' }}>
-                Add a reason for this decision.
+                Add a reason for rejecting this booking.
               </p>
               <div className="form-group">
                 <label htmlFor="admin-decision-reason">Decision Reason</label>
@@ -132,9 +177,7 @@ export default function AdminBookingsPage() {
                     error: null,
                   }))}
                   rows={3}
-                  placeholder={decisionModal.action === 'APPROVED'
-                    ? 'Approved by admin after review'
-                    : 'Enter rejection reason (e.g., timeslot conflict, maintenance, policy limits)'}
+                  placeholder="Enter rejection reason (e.g., timeslot conflict, maintenance, policy limits)"
                 />
               </div>
 
@@ -144,10 +187,11 @@ export default function AdminBookingsPage() {
                 </button>
                 <button
                   type="button"
-                  className={`btn ${decisionModal.action === 'APPROVED' ? 'btn-approve' : 'btn-reject'}`}
+                  className="btn btn-reject"
                   onClick={submitDecision}
+                  disabled={processingBookingId === decisionModal.bookingId}
                 >
-                  {decisionModal.action === 'APPROVED' ? 'Approve' : 'Reject'}
+                  {processingBookingId === decisionModal.bookingId ? 'Rejecting...' : 'Reject'}
                 </button>
               </div>
             </div>
@@ -197,8 +241,9 @@ export default function AdminBookingsPage() {
               <BookingCard
                 key={booking.id}
                 booking={booking}
-                onApprove={(id) => openDecisionModal(id, 'APPROVED')}
-                onReject={(id) => openDecisionModal(id, 'REJECTED')}
+                onApprove={handleApprove}
+                onReject={openDecisionModal}
+                processingBookingId={processingBookingId}
                 isAdmin={true}
               />
             ))}

@@ -1,6 +1,7 @@
 package com.smartcampus.booking.service;
 
 import com.smartcampus.auth.model.Role;
+import com.smartcampus.auth.repository.UserRepository;
 import com.smartcampus.booking.dto.BookingDTO;
 import com.smartcampus.booking.dto.CreateBookingRequest;
 import com.smartcampus.booking.dto.UpdateBookingRequest;
@@ -31,11 +32,14 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final NotificationService notificationService;
+    private final UserRepository userRepository;
 
     public BookingService(BookingRepository bookingRepository,
-                          NotificationService notificationService) {
+                          NotificationService notificationService,
+                          UserRepository userRepository) {
         this.bookingRepository = bookingRepository;
         this.notificationService = notificationService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -176,7 +180,7 @@ public class BookingService {
         }
 
         booking.setStatus(newStatus);
-        booking.setAdminReason(trimmedReason == null || trimmedReason.isEmpty() ? null : trimmedReason);
+        booking.setAdminReason(newStatus == BookingStatus.REJECTED ? trimmedReason : null);
         Booking updated = bookingRepository.save(booking);
         log.info("Booking {} status updated to {} by admin", bookingId, newStatus);
 
@@ -308,6 +312,13 @@ public class BookingService {
                 booking.getCreatedAt()
         );
         dto.setAdminReason(booking.getAdminReason());
+        dto.setUserName(resolveUserName(booking.getUserId()));
         return dto;
+    }
+
+    private String resolveUserName(String userId) {
+        return userRepository.findById(userId)
+                .map(user -> user.getName() == null || user.getName().isBlank() ? user.getEmail() : user.getName())
+                .orElse(userId);
     }
 }

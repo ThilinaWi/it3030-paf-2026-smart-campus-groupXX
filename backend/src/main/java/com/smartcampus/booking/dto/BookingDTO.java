@@ -14,6 +14,7 @@ public class BookingDTO {
 
     private String id;
     private String userId;
+    private String userName;
     private String resourceId;
     private LocalDate date;
     private LocalTime startTime;
@@ -47,6 +48,9 @@ public class BookingDTO {
 
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 
     public String getResourceId() { return resourceId; }
     public void setResourceId(String resourceId) { this.resourceId = resourceId; }

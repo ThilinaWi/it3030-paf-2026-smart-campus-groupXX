@@ -12,9 +12,12 @@ export function useBookings(isAdmin = false, adminStatusFilter = 'ALL') {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchBookings = useCallback(async () => {
+  const fetchBookings = useCallback(async (options = {}) => {
+    const silent = options.silent === true;
     try {
-      setLoading(true);
+      if (!silent) {
+        setLoading(true);
+      }
       setError(null);
       const data = isAdmin
         ? await bookingService.getAllBookings(adminStatusFilter)
@@ -24,7 +27,9 @@ export function useBookings(isAdmin = false, adminStatusFilter = 'ALL') {
       console.error('Failed to fetch bookings:', err);
       setError(err.response?.data?.message || 'Failed to load bookings');
     } finally {
-      setLoading(false);
+      if (!silent) {
+        setLoading(false);
+      }
     }
   }, [isAdmin, adminStatusFilter]);
 
