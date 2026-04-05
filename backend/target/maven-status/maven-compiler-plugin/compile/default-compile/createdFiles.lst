@@ -1,0 +1,11 @@
+com\campus\service\ResourceService.class
+com\campus\exception\ResourceNotFoundException.class
+com\campus\repository\ResourceRepository.class
+com\campus\exception\GlobalExceptionHandler.class
+com\campus\service\impl\ResourceServiceImpl.class
+com\campus\controller\ResourceController.class
+com\campus\dto\ResourceDTO.class
+com\campus\dto\ResourceCreateDTO.class
+com\campus\dto\ResourceUpdateDTO.class
+com\campus\CampusApplication.class
+com\campus\model\Resource.class
