@@ -428,10 +428,49 @@
   background: #f0f4ff;
 }
 
+.notification-item.notification-item-request.unread {
+  background: #fffbea;
+  border-left-color: #f59e0b;
+}
+
+.notification-item.notification-item-request.unread:hover {
+  background: #fff7d6;
+}
+
+.notification-item.notification-item-approved.unread {
+  background: #ecfdf3;
+  border-left-color: #22c55e;
+}
+
+.notification-item.notification-item-approved.unread:hover {
+  background: #defbe8;
+}
+
+.notification-item.notification-item-rejected.unread {
+  background: #fef2f2;
+  border-left-color: #ef4444;
+}
+
+.notification-item.notification-item-rejected.unread:hover {
+  background: #fee2e2;
+}
+
 .notification-icon {
   font-size: 1.25rem;
   flex-shrink: 0;
   margin-top: 2px;
+}
+
+.notification-item.notification-item-request .notification-icon {
+  color: #b45309;
+}
+
+.notification-item.notification-item-approved .notification-icon {
+  color: #15803d;
+}
+
+.notification-item.notification-item-rejected .notification-icon {
+  color: #b91c1c;
 }
 
 .notification-content {
