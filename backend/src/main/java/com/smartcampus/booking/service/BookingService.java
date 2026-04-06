@@ -185,7 +185,7 @@ public class BookingService {
         log.info("Booking {} status updated to {} by admin", bookingId, newStatus);
 
         // Trigger notification to the booking owner
-        sendStatusNotification(updated.getUserId(), updated.getStatus(), updated.getAdminReason());
+        sendStatusNotification(updated.getUserId(), updated.getStatus(), updated.getResourceId(), updated.getAdminReason());
 
         return toDTO(updated);
     }
@@ -254,16 +254,12 @@ public class BookingService {
     /**
      * Send a notification to the user when their booking status changes.
      */
-    private void sendStatusNotification(String userId, BookingStatus status, String reason) {
+    private void sendStatusNotification(String userId, BookingStatus status, String resourceId, String reason) {
         String message;
         if (status == BookingStatus.APPROVED) {
-            message = "Your booking has been approved";
+            message = String.format("Approved: Your booking for %s has been approved", resourceId);
         } else {
-            message = "Your booking has been rejected";
-        }
-
-        if (reason != null && !reason.isBlank()) {
-            message = message + ": " + reason;
+            message = String.format("Rejected: Your booking for %s was rejected (reason: %s)", resourceId, reason);
         }
 
         CreateNotificationRequest notificationRequest = new CreateNotificationRequest(
