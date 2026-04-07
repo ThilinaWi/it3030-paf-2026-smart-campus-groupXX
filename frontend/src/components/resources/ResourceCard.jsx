@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ResourceCard = ({ resource, isAdmin, onDelete }) => {
+const ResourceCard = ({ resource, isAdmin, onDelete, onToggleStatus }) => {
     const navigate = useNavigate();
+    const isActive = resource.isActive ?? resource.status === 'ACTIVE';
 
     const getStatusColor = (status) => {
         switch (status) {
@@ -49,6 +50,12 @@ const ResourceCard = ({ resource, isAdmin, onDelete }) => {
                 </button>
                 {isAdmin ? (
                     <>
+                        <button
+                            style={{...styles.button, backgroundColor: isActive ? '#6b7280' : '#16a34a'}}
+                            onClick={() => onToggleStatus(resource.id, isActive)}
+                        >
+                            {isActive ? '⏸️ Inactivate' : '✅ Activate'}
+                        </button>
                         <button 
                             style={{...styles.button, backgroundColor: '#f39c12'}}
                             onClick={() => navigate(`/resources/edit/${resource.id}`)}
@@ -64,10 +71,11 @@ const ResourceCard = ({ resource, isAdmin, onDelete }) => {
                     </>
                 ) : (
                     <button
-                        style={{...styles.button, backgroundColor: '#16a34a'}}
+                        style={{...styles.button, backgroundColor: isActive ? '#16a34a' : '#9ca3af', cursor: isActive ? 'pointer' : 'not-allowed'}}
                         onClick={() => navigate(`/bookings?resourceId=${encodeURIComponent(resource.id)}&resourceName=${encodeURIComponent(resource.name)}`)}
+                        disabled={!isActive}
                     >
-                        📅 Book Now
+                        {isActive ? '📅 Book Now' : '🚫 Inactive'}
                     </button>
                 )}
             </div>

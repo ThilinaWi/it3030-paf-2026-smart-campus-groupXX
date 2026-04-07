@@ -6,6 +6,7 @@ C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\ba
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\controller\ResourceController.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\dto\ResourceCreateDTO.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\dto\ResourceDTO.java
+C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\dto\ResourceStatusUpdateDTO.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\dto\ResourceUpdateDTO.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\exception\ConflictException.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\exception\ErrorResponse.java

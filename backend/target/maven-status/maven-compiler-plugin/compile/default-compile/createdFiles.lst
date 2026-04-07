@@ -31,6 +31,7 @@ com\smartcampus\security\JwtTokenProvider.class
 com\smartcampus\dto\ResourceCreateDTO.class
 com\smartcampus\controller\ResourceController.class
 com\smartcampus\exception\ForbiddenOperationException.class
+com\smartcampus\dto\ResourceStatusUpdateDTO.class
 com\smartcampus\model\dto\request\UpdateUserRoleRequest.class
 com\smartcampus\exception\ResourceNotFoundException.class
 com\smartcampus\controller\AuthController.class

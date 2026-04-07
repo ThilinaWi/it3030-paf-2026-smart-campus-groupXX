@@ -61,6 +61,15 @@ const ResourceList = () => {
         }
     };
 
+    const handleToggleStatus = async (id, currentActive) => {
+        try {
+            await resourceApi.updateStatus(id, !currentActive);
+            await fetchResources();
+        } catch (err) {
+            alert('❌ Failed to update resource status');
+        }
+    };
+
     if (loading) return <LoadingSpinner />;
 
     return (
@@ -99,6 +108,7 @@ const ResourceList = () => {
                             resource={resource} 
                             isAdmin={isAdmin}
                             onDelete={handleDelete}
+                            onToggleStatus={handleToggleStatus}
                         />
                     ))}
                 </div>

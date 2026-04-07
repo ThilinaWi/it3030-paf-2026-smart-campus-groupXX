@@ -25,6 +25,7 @@ export const resourceApi = {
   getById: (id) => api.get(`/resources/${id}`),
   create: (resource) => api.post('/resources', resource),
   update: (id, resource) => api.put(`/resources/${id}`, resource),
+  updateStatus: (id, isActive) => api.put(`/resources/${id}/status`, { isActive }),
   delete: (id) => api.delete(`/resources/${id}`),
   search: (filters) => {
     const params = {};

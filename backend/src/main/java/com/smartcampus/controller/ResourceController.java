@@ -2,6 +2,7 @@ package com.smartcampus.controller;
 
 import com.smartcampus.dto.ResourceCreateDTO;
 import com.smartcampus.dto.ResourceDTO;
+import com.smartcampus.dto.ResourceStatusUpdateDTO;
 import com.smartcampus.dto.ResourceUpdateDTO;
 import com.smartcampus.model.enums.ResourceType;
 import com.smartcampus.service.ResourceService;
@@ -46,6 +47,14 @@ public class ResourceController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResourceDTO> updateResource(@PathVariable String id, @Valid @RequestBody ResourceUpdateDTO dto) {
         return ResponseEntity.ok(resourceService.updateResource(id, dto));
+    }
+
+    @PutMapping("/{id}/status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ResourceDTO> updateResourceStatus(
+            @PathVariable String id,
+            @Valid @RequestBody ResourceStatusUpdateDTO dto) {
+        return ResponseEntity.ok(resourceService.updateResourceStatus(id, dto.getIsActive()));
     }
     
     @DeleteMapping("/{id}")

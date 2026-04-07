@@ -61,6 +61,19 @@ public class ResourceServiceImpl implements ResourceService {
         Resource updated = resourceRepository.save(resource);
         return convertToDTO(updated);
     }
+
+    @Override
+    public ResourceDTO updateResourceStatus(String id, boolean isActive) {
+        Resource resource = resourceRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Resource not found with id: " + id));
+
+        resource.setActive(isActive);
+        resource.setStatus(isActive ? "ACTIVE" : "INACTIVE");
+        resource.setUpdatedAt(LocalDateTime.now());
+
+        Resource updated = resourceRepository.save(resource);
+        return convertToDTO(updated);
+    }
     
     @Override
     public void deleteResource(String id) {
@@ -123,6 +136,7 @@ public class ResourceServiceImpl implements ResourceService {
         dto.setCapacity(resource.getCapacity());
         dto.setLocation(resource.getLocation());
         dto.setStatus(resource.getStatus());
+        dto.setIsActive(resource.isActive());
         dto.setDescription(resource.getDescription());
         dto.setImageUrl(resource.getImageUrl());
         dto.setAvailabilityWindow(resource.getAvailabilityWindow());
