@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { resourceApi } from '../../services/api';
 import LoadingSpinner from '../common/LoadingSpinner';
+import { useAuth } from '../../hooks/useAuth';
 
 const ResourceDetail = () => {
+    const { user } = useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
     const [resource, setResource] = useState(null);
@@ -97,9 +99,11 @@ const ResourceDetail = () => {
                 </div>
                 
                 <div style={styles.actions}>
-                    <Link to={`/resources/edit/${resource.id}`} style={{...styles.button, backgroundColor: '#f39c12', textDecoration: 'none'}}>
-                        ✏️ Edit Resource
-                    </Link>
+                    {user?.role === 'ADMIN' && (
+                        <Link to={`/resources/edit/${resource.id}`} style={{...styles.button, backgroundColor: '#f39c12', textDecoration: 'none'}}>
+                            ✏️ Edit Resource
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

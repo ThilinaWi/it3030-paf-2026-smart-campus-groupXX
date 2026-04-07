@@ -7,6 +7,7 @@ import { HiOutlineCalendar, HiOutlineClock, HiOutlineUsers, HiOutlineClipboardLi
 export default function BookingForm({ onSubmit, onCancel, loading, initialValues = null, mode = 'create' }) {
   const [formData, setFormData] = useState({
     resourceId: '',
+    resourceName: '',
     date: '',
     startTime: '',
     endTime: '',
@@ -64,6 +65,7 @@ export default function BookingForm({ onSubmit, onCancel, loading, initialValues
     if (!initialValues) {
       setFormData({
         resourceId: '',
+        resourceName: '',
         date: '',
         startTime: '',
         endTime: '',
@@ -75,6 +77,7 @@ export default function BookingForm({ onSubmit, onCancel, loading, initialValues
 
     setFormData({
       resourceId: initialValues.resourceId || '',
+      resourceName: initialValues.resourceName || '',
       date: initialValues.date || '',
       startTime: initialValues.startTime ? initialValues.startTime.substring(0, 5) : '',
       endTime: initialValues.endTime ? initialValues.endTime.substring(0, 5) : '',
@@ -141,19 +144,32 @@ export default function BookingForm({ onSubmit, onCancel, loading, initialValues
   return (
     <form className="booking-form" onSubmit={handleSubmit} id="booking-form">
       <div className="form-group">
-        <label htmlFor="resourceId">
+        <label htmlFor={formData.resourceName ? 'resourceName' : 'resourceId'}>
           <HiOutlineClipboardList size={16} />
-          Resource ID
+          {formData.resourceName ? 'Resource Name' : 'Resource ID'}
         </label>
-        <input
-          type="text"
-          id="resourceId"
-          name="resourceId"
-          value={formData.resourceId}
-          onChange={handleChange}
-          placeholder="e.g., room-101, lab-A, projector-3"
-          className={errors.resourceId ? 'input-error' : ''}
-        />
+        {formData.resourceName ? (
+          <>
+            <input
+              type="text"
+              id="resourceName"
+              name="resourceName"
+              value={formData.resourceName}
+              readOnly
+            />
+            <input type="hidden" name="resourceId" value={formData.resourceId} />
+          </>
+        ) : (
+          <input
+            type="text"
+            id="resourceId"
+            name="resourceId"
+            value={formData.resourceId}
+            onChange={handleChange}
+            placeholder="e.g., room-101, lab-A, projector-3"
+            className={errors.resourceId ? 'input-error' : ''}
+          />
+        )}
         {errors.resourceId && <span className="field-error">{errors.resourceId}</span>}
       </div>
 

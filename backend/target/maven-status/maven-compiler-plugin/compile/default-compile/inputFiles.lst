@@ -26,6 +26,7 @@ C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\ba
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\model\entity\User.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\model\enums\BookingStatus.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\model\enums\NotificationType.java
+C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\model\enums\ResourceType.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\model\enums\Role.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\model\Resource.java
 C:\Users\thili\OneDrive\Documents\GitHub\it3030-paf-2026-smart-campus-groupXX\backend\src\main\java\com\smartcampus\repository\BookingRepository.java

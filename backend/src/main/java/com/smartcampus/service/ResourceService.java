@@ -3,6 +3,7 @@ package com.smartcampus.service;
 import com.smartcampus.dto.ResourceCreateDTO;
 import com.smartcampus.dto.ResourceDTO;
 import com.smartcampus.dto.ResourceUpdateDTO;
+import com.smartcampus.model.enums.ResourceType;
 import java.util.List;
 
 public interface ResourceService {
@@ -10,6 +11,5 @@ public interface ResourceService {
     ResourceDTO updateResource(String id, ResourceUpdateDTO dto);
     void deleteResource(String id);
     ResourceDTO getResourceById(String id);
-    List<ResourceDTO> getAllResources();
-    List<ResourceDTO> searchResources(String type, Integer minCapacity, String location, String searchTerm);
+    List<ResourceDTO> getResources(String name, ResourceType type, Integer minCapacity, String location);
 }
