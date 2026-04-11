@@ -244,6 +244,7 @@ const styles = {
         borderRadius: '6px',
         marginBottom: '1rem',
         textAlign: 'center',
+        
     },
 };
 
