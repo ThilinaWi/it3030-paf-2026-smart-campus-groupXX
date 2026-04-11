@@ -39,5 +39,6 @@ public class ResourceCreateDTO {
     public void setAvailabilityWindow(String availabilityWindow) { this.availabilityWindow = availabilityWindow;
 
      }
+   
      
 }
