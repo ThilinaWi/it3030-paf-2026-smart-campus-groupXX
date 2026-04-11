@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 /**
- * DTO for booking responses.
+ * DTO for booking responses..
  */
 public class BookingDTO {
 
