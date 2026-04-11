@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * REST controller for booking management endpoints.
+ * REST controller for booking management endpoints..
  */
 @RestController
 @RequestMapping("/api/bookings")
@@ -53,7 +53,7 @@ public class BookingController {
         BookingDTO booking = bookingService.updateBooking(id, user.getId(), request);
         return ResponseEntity.ok(booking);
     }
-
+     
     /**
      * Get all bookings for the logged-in user.
      * GET /api/bookings/my
