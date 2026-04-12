@@ -11,7 +11,7 @@ import java.util.List;
 
 
 /**
- * MongoDB document representing a resource booking in the Smart Campus system.
+ * MongoDB document representing a resource booking in the Smart Campus system...
  */
 @Document(collection = "bookings")
 public class Booking {
