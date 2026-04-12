@@ -4,7 +4,7 @@ import com.smartcampus.booking.entity.BookingStatus;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * DTO for updating booking status (approve/reject).
+ * DTO for updating booking status (approve/reject)..
  */
 public class UpdateBookingStatusRequest {
 
