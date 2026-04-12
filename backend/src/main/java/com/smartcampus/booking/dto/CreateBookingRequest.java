@@ -43,6 +43,7 @@ public class CreateBookingRequest {
         this.attendees = attendees;
     }
 
+    
     // Getters and Setters
     public String getResourceId() { return resourceId; }
     public void setResourceId(String resourceId) { this.resourceId = resourceId; }
