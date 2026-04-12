@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+
 /**
  * MongoDB document representing a resource booking in the Smart Campus system.
  */
