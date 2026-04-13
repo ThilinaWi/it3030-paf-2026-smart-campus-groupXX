@@ -10,7 +10,7 @@ import java.util.List;
 
 
 /**
- * MongoDB repository for Booking documents.
+ * MongoDB repository for Booking documents...
  */
 @Repository
 public interface BookingRepository extends MongoRepository<Booking, String> {
