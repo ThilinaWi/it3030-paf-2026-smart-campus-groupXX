@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 /**
  * Service handling booking business logic including conflict detection,
- * status workflow management, and notification integration.
+ * status workflow management, and notification integration...
  */
 @Service
 public class BookingService {
