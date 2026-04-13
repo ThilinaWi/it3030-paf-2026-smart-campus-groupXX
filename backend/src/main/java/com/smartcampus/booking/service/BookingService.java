@@ -82,6 +82,7 @@ public class BookingService {
         return toDTO(saved);
     }
 
+    
     /**
      * Update an existing booking for the owner when booking is still editable.
      */
