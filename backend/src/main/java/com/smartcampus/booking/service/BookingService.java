@@ -46,9 +46,9 @@ public class BookingService {
         this.userRepository = userRepository;
     }
 
-    
+
     /**
-     * Create a new booking after validating time constraints and checking for conflicts.
+     * Create a new booking after validating time constraints and checking for conflicts...
      */
     public BookingDTO createBooking(String userId, CreateBookingRequest request) {
         // Validate that startTime is before endTime
