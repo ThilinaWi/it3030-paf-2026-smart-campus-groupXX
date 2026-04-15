@@ -2,7 +2,7 @@ import { HiOutlineCalendar, HiOutlineClock, HiOutlineUsers, HiOutlineLocationMar
 
 
 /**
- * Individual booking card displaying booking details and actions.
+ * Individual booking card displaying booking details and actions...
  */
 export default function BookingCard({ booking, onCancel, onEdit, onApprove, onReject, isAdmin, processingBookingId }) {
   const statusConfig = {
