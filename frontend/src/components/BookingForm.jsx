@@ -3,7 +3,7 @@ import { HiOutlineCalendar, HiOutlineClock, HiOutlineUsers, HiOutlineClipboardLi
 
 
 /**
- * Booking creation form with validation.
+ * Booking creation form with validation...
  */
 export default function BookingForm({ onSubmit, onCancel, loading, initialValues = null, mode = 'create' }) {
   const [formData, setFormData] = useState({
