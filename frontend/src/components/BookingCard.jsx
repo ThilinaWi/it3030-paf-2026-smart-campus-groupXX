@@ -1,5 +1,6 @@
 import { HiOutlineCalendar, HiOutlineClock, HiOutlineUsers, HiOutlineLocationMarker } from 'react-icons/hi';
 
+
 /**
  * Individual booking card displaying booking details and actions.
  */
