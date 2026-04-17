@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 /**
  * Google Sign-In button component.
- * On success, exchanges the Google credential for a JWT via the backend.
+ * On success, exchanges the Google credential for a JWT via the backend...
  */
 export default function GoogleLoginButton() {
   const { login } = useAuth();
