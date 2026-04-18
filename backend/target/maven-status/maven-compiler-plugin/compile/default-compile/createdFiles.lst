@@ -1,3 +1,4 @@
+com\smartcampus\model\enums\ResourceType.class
 com\smartcampus\model\dto\response\AuthResponse.class
 com\smartcampus\ticket\repository\TicketRepository.class
 com\smartcampus\dto\ResourceDTO.class
@@ -46,6 +47,7 @@ com\smartcampus\security\JwtTokenProvider.class
 com\smartcampus\dto\ResourceCreateDTO.class
 com\smartcampus\ticket\dto\UpdateTicketStatusRequest.class
 com\smartcampus\exception\ForbiddenOperationException.class
+com\smartcampus\dto\ResourceStatusUpdateDTO.class
 com\smartcampus\model\dto\request\UpdateUserRoleRequest.class
 com\smartcampus\exception\ResourceNotFoundException.class
 com\smartcampus\ticket\dto\AssignTechnicianRequest.class
