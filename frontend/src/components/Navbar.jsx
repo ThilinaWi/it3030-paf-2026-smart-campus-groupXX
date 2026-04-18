@@ -9,6 +9,8 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import NotificationPanel from './NotificationPanel';
 
+
+
 /**
  * Minimal top navbar with logo/user and a dedicated left sidebar for navigation.
  */
