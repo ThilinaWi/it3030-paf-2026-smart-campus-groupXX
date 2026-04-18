@@ -12,7 +12,7 @@ import NotificationPanel from './NotificationPanel';
 
 
 /**
- * Minimal top navbar with logo/user and a dedicated left sidebar for navigation.
+ * Minimal top navbar with logo/user and a dedicated left sidebar for navigation...
  */
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
