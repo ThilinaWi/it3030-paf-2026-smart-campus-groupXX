@@ -164,7 +164,7 @@ const styles = {
         textAlign: 'center',
         marginBottom: '1rem',
     },
-    
+
     empty: {
         textAlign: 'center',
         padding: '3rem',
@@ -173,6 +173,7 @@ const styles = {
         color: '#7f8c8d',
     },
 
+    
 };
 
 export default ResourceList;
