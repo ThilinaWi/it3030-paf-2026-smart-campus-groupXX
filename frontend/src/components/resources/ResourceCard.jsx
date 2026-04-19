@@ -22,6 +22,7 @@ const ResourceCard = ({ resource, isAdmin, onDelete, onToggleStatus }) => {
             default: return '⚪';
         }
     };
+    
 
     return (
         <div style={styles.card}>
