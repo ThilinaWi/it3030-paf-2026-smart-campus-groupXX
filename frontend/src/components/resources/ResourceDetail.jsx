@@ -62,7 +62,7 @@ const ResourceDetail = () => {
         } finally {
             setPreviewLoading(false);
         }
-        
+
     };
 
     if (loading) return <LoadingSpinner />;
@@ -155,6 +155,7 @@ const ResourceDetail = () => {
         </div>
     );
 };
+
 
 const styles = {
     container: {
