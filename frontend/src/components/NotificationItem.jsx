@@ -3,7 +3,7 @@ import { NOTIFICATION_TYPES } from '../utils/constants';
 
 
 /**
- * Single notification item component.
+ * Single notification item component...
  */
 export default function NotificationItem({ notification, onMarkAsRead }) {
   const { id, type, message, isRead, createdAt } = notification;
