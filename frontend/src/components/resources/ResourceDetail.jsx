@@ -62,6 +62,7 @@ const ResourceDetail = () => {
         } finally {
             setPreviewLoading(false);
         }
+        
     };
 
     if (loading) return <LoadingSpinner />;
