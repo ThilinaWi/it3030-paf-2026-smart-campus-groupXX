@@ -1,6 +1,7 @@
 import { HiOutlineBell, HiOutlineCheckCircle } from 'react-icons/hi';
 import { NOTIFICATION_TYPES } from '../utils/constants';
 
+
 /**
  * Single notification item component.
  */
