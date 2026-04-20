@@ -632,34 +632,6 @@ const features = [
   { icon: '📊', title: 'Analytics Dashboard', desc: 'Understand trends, workload distribution, and system health at a glance with rich visual insights.', color: '#0891b2', bg: '#ecfeff' },
 ];
 
-const roles = [
-  {
-    icon: '👤', name: 'User', tag: 'STAFF / STUDENT',
-    desc: 'Create and track incidents, book resources, and receive updates — everything you need to get campus support.',
-    perms: ['Submit & track incidents', 'Book campus resources', 'Receive live notifications', 'View booking history'],
-    color: '#2563eb', bg: '#eff4ff', tagBg: '#dbeafe', tagColor: '#1d4ed8',
-  },
-  {
-    icon: '🔧', name: 'Technician', tag: 'SUPPORT STAFF',
-    desc: 'View assigned incidents, update resolution status, and collaborate with the team to keep campus running.',
-    perms: ['View assigned incidents', 'Update incident status', 'Manage booking schedules', 'Access technical logs'],
-    color: '#16a34a', bg: '#f0fdf4', tagBg: '#dcfce7', tagColor: '#15803d',
-  },
-  {
-    icon: '⚙️', name: 'Admin', tag: 'ADMINISTRATOR',
-    desc: 'Full oversight: manage users, assign technicians, configure resources, and access system-wide reporting.',
-    perms: ['Full incident oversight', 'Manage all bookings', 'User & role management', 'Resource configuration'],
-    color: '#7c3aed', bg: '#f5f3ff', tagBg: '#ede9fe', tagColor: '#6d28d9',
-  },
-];
-
-const steps = [
-  { icon: '🔐', title: 'Sign In', desc: 'Authenticate securely via your university Google account.', n: '01' },
-  { icon: '📋', title: 'Create Request', desc: 'Submit an incident or book a resource in under 60 seconds.', n: '02' },
-  { icon: '🔔', title: 'Get Updates', desc: 'Track real-time status changes and receive instant notifications.', n: '03' },
-  { icon: '✅', title: 'Resolved', desc: 'Issues get resolved, bookings confirmed — full audit trail kept.', n: '04' },
-];
-
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -673,7 +645,6 @@ function Navbar() {
 
   const navLinks = [
     { label: 'Features', href: '#features' },
-    { label: 'Roles', href: '#roles' },
     { label: 'How it Works', href: '#how' },
     { label: 'About', href: '#about' },
   ];
@@ -718,7 +689,7 @@ function Navbar() {
   );
 }
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+// ─── Hero ────────────────────────────────────────────────────────────────────
 function Hero() {
   return (
     <section className="sc-hero">
@@ -855,46 +826,6 @@ function Features() {
   );
 }
 
-// ─── Roles ────────────────────────────────────────────────────────────────────
-function Roles() {
-  return (
-    <section className="sc-roles" id="roles">
-      <div className="sc-section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-        <div className="section-header section-header-centered">
-          <div className="section-eyebrow" style={{ justifyContent: 'center' }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
-            Role-Based Platform
-          </div>
-          <h2 className="section-title">The right tools for<br />every person on campus</h2>
-          <p className="section-desc">Three distinct roles, one unified system. Everyone sees exactly what they need — nothing more, nothing less.</p>
-        </div>
-        <div className="roles-grid">
-          {roles.map((r) => (
-            <div className="role-card" key={r.name} style={{ '--rc-color': r.color }}>
-              <div className="role-top">
-                <div className="role-icon-wrap" style={{ background: r.bg, fontSize: '24px' }}>{r.icon}</div>
-                <div>
-                  <div className="role-name">{r.name}</div>
-                  <div className="role-tag" style={{ background: r.tagBg, color: r.tagColor }}>{r.tag}</div>
-                </div>
-              </div>
-              <p className="role-desc">{r.desc}</p>
-              <div className="role-perms">
-                {r.perms.map(p => (
-                  <div className="role-perm" key={p}>
-                    <div className="perm-dot" style={{ background: r.color }} />
-                    {p}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── Stats Band ───────────────────────────────────────────────────────────────
 function StatsBand() {
   return (
@@ -919,33 +850,6 @@ function StatsBand() {
         </div>
       </div>
     </div>
-  );
-}
-
-// ─── How it Works ─────────────────────────────────────────────────────────────
-function HowItWorks() {
-  return (
-    <section className="sc-section" id="how">
-      <div className="section-header section-header-centered">
-        <div className="section-eyebrow" style={{ justifyContent: 'center' }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
-          Simple Process
-        </div>
-        <h2 className="section-title">Up and running<br />in four steps</h2>
-        <p className="section-desc">No training required. The platform is intuitive by design — built around how campus staff and students actually think.</p>
-      </div>
-      <div className="hiw-grid">
-        {steps.map((s, i) => (
-          <div className="hiw-card" key={s.title} style={{ position: 'relative' }}>
-            <div className="hiw-num">{s.n}</div>
-            <div className="hiw-icon">{s.icon}</div>
-            <div className="hiw-title">{s.title}</div>
-            <p className="hiw-desc">{s.desc}</p>
-            {i < steps.length - 1 && <span className="hiw-connector">→</span>}
-          </div>
-        ))}
-      </div>
-    </section>
   );
 }
 
@@ -1034,9 +938,7 @@ export default function HomePage() {
         <Hero />
         <Strip />
         <Features />
-        <Roles />
         <StatsBand />
-        <HowItWorks />
         <CTA />
       </main>
       <Footer />
