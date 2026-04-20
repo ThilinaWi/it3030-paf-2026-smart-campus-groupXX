@@ -6,7 +6,7 @@ import NotificationItem from './NotificationItem';
 
 
 /**
- * Notification bell icon with dropdown panel showing recent notifications.
+ * Notification bell icon with dropdown panel showing recent notifications....
  */
 export default function NotificationPanel() {
   const [isOpen, setIsOpen] = useState(false);
