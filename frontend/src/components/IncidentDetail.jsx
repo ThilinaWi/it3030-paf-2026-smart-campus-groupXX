@@ -3,6 +3,7 @@ import {
   HiOutlineExclamation,
   HiOutlineTag,
   HiOutlineCalendar,
+  HiOutlineClock,
   HiOutlineUser,
   HiOutlineDocumentText,
   HiOutlinePaperClip,
@@ -41,6 +42,50 @@ const getAllowedNextStatuses = (currentStatus, currentRole) => {
   return [];
 };
 
+const getResolutionTime = (createdAt, resolvedAt) => {
+  if (!createdAt || !resolvedAt) return null;
+
+  const diffMs = new Date(resolvedAt) - new Date(createdAt);
+  if (diffMs < 0) return null;
+
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  return `${hours}h ${minutes}m`;
+};
+
+const getOpenTime = (createdAt, nowTs) => {
+  if (!createdAt) return null;
+
+  const diffMs = nowTs - new Date(createdAt).getTime();
+  if (diffMs < 0) return null;
+
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  return `${hours}h ${minutes}m`;
+};
+
+const formatDateTime = (value) => {
+  if (!value) return '-';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '-';
+  return date.toLocaleString();
+};
+
+const formatTimeOnly = (value) => {
+  if (!value) return '-';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '-';
+  return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+};
+
+const formatMinutesCompact = (minutes) => {
+  if (minutes == null || Number.isNaN(minutes) || minutes < 0) return null;
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  const remainder = minutes % 60;
+  return `${hours}h ${remainder}m`;
+};
+
 export default function IncidentDetail({
   incident,
   updates,
@@ -74,6 +119,9 @@ export default function IncidentDetail({
   }, [incident?.status, currentRole]);
 
   if (!incident) return null;
+
+  const resolutionDuration = getResolutionTime(incident.createdAt, incident.resolvedAt);
+  const firstResponseDuration = formatMinutesCompact(incident.timeToFirstResponseMinutes);
 
   return (
     <div className="id-page">
@@ -126,6 +174,38 @@ export default function IncidentDetail({
           <div>
             <div className="id-info-label">Assigned To</div>
             <div className="id-info-value">{incident.technicianName || 'Unassigned'}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── SLA / Resolution Time ── */}
+      <div className="id-section id-sla-card">
+        <h3 className="id-section-title">
+          <HiOutlineClock size={16} />
+          Resolution Time (SLA)
+        </h3>
+        <div className="id-sla-grid">
+          <div className="id-sla-row">
+            <span className="id-sla-label">Created:</span>
+            <span className="id-sla-value">{formatTimeOnly(incident.createdAt)}</span>
+          </div>
+
+          <div className="id-sla-row">
+            <span className="id-sla-label">First Response:</span>
+            <span className="id-sla-value">
+              {incident.firstResponseAt
+                ? `${formatTimeOnly(incident.firstResponseAt)}${firstResponseDuration ? ` (${firstResponseDuration})` : ''}`
+                : '-'}
+            </span>
+          </div>
+
+          <div className="id-sla-row">
+            <span className="id-sla-label">Resolved:</span>
+            <span className="id-sla-value">
+              {incident.resolvedAt
+                ? `${formatTimeOnly(incident.resolvedAt)}${resolutionDuration ? ` (${resolutionDuration})` : ''}`
+                : '-'}
+            </span>
           </div>
         </div>
       </div>

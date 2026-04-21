@@ -20,7 +20,10 @@ public class TicketResponse {
     private String technicianName;
     private List<String> attachments;
     private LocalDateTime createdAt;
+    private LocalDateTime firstResponseAt;
+    private LocalDateTime resolvedAt;
     private LocalDateTime updatedAt;
+    private String resolutionTime;
     private Long timeToFirstResponseMinutes;
     private Long timeToResolutionMinutes;
     private List<TicketHistoryItemResponse> history;
@@ -39,7 +42,10 @@ public class TicketResponse {
                           String technicianName,
                           List<String> attachments,
                           LocalDateTime createdAt,
+                          LocalDateTime firstResponseAt,
+                          LocalDateTime resolvedAt,
                           LocalDateTime updatedAt,
+                          String resolutionTime,
                           Long timeToFirstResponseMinutes,
                           Long timeToResolutionMinutes,
                           List<TicketHistoryItemResponse> history) {
@@ -54,7 +60,10 @@ public class TicketResponse {
         this.technicianName = technicianName;
         this.attachments = attachments;
         this.createdAt = createdAt;
+        this.firstResponseAt = firstResponseAt;
+        this.resolvedAt = resolvedAt;
         this.updatedAt = updatedAt;
+        this.resolutionTime = resolutionTime;
         this.timeToFirstResponseMinutes = timeToFirstResponseMinutes;
         this.timeToResolutionMinutes = timeToResolutionMinutes;
         this.history = history;
@@ -148,12 +157,36 @@ public class TicketResponse {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getFirstResponseAt() {
+        return firstResponseAt;
+    }
+
+    public void setFirstResponseAt(LocalDateTime firstResponseAt) {
+        this.firstResponseAt = firstResponseAt;
+    }
+
+    public LocalDateTime getResolvedAt() {
+        return resolvedAt;
+    }
+
+    public void setResolvedAt(LocalDateTime resolvedAt) {
+        this.resolvedAt = resolvedAt;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getResolutionTime() {
+        return resolutionTime;
+    }
+
+    public void setResolutionTime(String resolutionTime) {
+        this.resolutionTime = resolutionTime;
     }
 
     public Long getTimeToFirstResponseMinutes() {

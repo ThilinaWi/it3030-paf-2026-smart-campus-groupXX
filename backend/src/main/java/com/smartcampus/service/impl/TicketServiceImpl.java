@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -511,11 +512,30 @@ public class TicketServiceImpl implements TicketService {
             technicianName,
                 ticket.getAttachments(),
                 ticket.getCreatedAt(),
+                ticket.getFirstResponseAt(),
+                ticket.getResolvedAt(),
                 ticket.getUpdatedAt(),
+                formatResolutionTime(ticket.getCreatedAt(), ticket.getResolvedAt()),
                 ticket.getTimeToFirstResponseMinutes(),
                 ticket.getTimeToResolutionMinutes(),
                 history
         );
+    }
+
+    private String formatResolutionTime(LocalDateTime createdAt, LocalDateTime resolvedAt) {
+        if (createdAt == null || resolvedAt == null) {
+            return null;
+        }
+
+        Duration duration = Duration.between(createdAt, resolvedAt);
+        if (duration.isNegative()) {
+            return null;
+        }
+
+        long totalMinutes = duration.toMinutes();
+        long hours = totalMinutes / 60;
+        long minutes = totalMinutes % 60;
+        return hours + "h " + minutes + "m";
     }
 
     private TicketHistoryItemResponse toHistoryResponse(TicketHistoryEntry entry) {
