@@ -154,6 +154,7 @@ const ResourceDetail = () => {
             </div>
         </div>
     );
+    
 };
 
 
