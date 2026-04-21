@@ -559,14 +559,6 @@ function Hero() {
 
       {/* ── Right ── */}
       <div className="hp-hero-right">
-        <div className="hp-float hp-float-1">
-          <span className="hp-float-icon">✅</span>
-          <div>
-            <div className="hp-float-label">Incident Resolved</div>
-            <div className="hp-float-sub">Lab A — Projector fixed</div>
-          </div>
-        </div>
-
         <div className="hp-hero-card">
           <div className="hp-hero-card-bar" />
           <div className="hp-hero-card-head">
@@ -602,14 +594,6 @@ function Hero() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-
-        <div className="hp-float hp-float-2">
-          <span className="hp-float-icon">📅</span>
-          <div>
-            <div className="hp-float-label">Booking Confirmed</div>
-            <div className="hp-float-sub">Lab 204 · Tomorrow 2 PM</div>
           </div>
         </div>
       </div>
