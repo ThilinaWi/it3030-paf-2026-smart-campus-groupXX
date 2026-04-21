@@ -3,7 +3,7 @@ import { HiOutlineCalendar, HiOutlineClock, HiOutlineUsers, HiOutlineLocationMar
 /**
  * Individual booking card displaying booking details and actions.
  */
-export default function BookingCard({ booking, onCancel, onEdit, onApprove, onReject, isAdmin, processingBookingId }) {
+export default function BookingCard({ booking, onCancel, onEdit, onApprove, onReject, isAdmin, processingBookingId, onShowQr }) {
   const statusConfig = {
     PENDING: { label: 'Pending', className: 'status-pending' },
     APPROVED: { label: 'Approved', className: 'status-approved' },
@@ -13,6 +13,7 @@ export default function BookingCard({ booking, onCancel, onEdit, onApprove, onRe
 
   const status = statusConfig[booking.status] || statusConfig.PENDING;
   const isProcessingThisBooking = processingBookingId === booking.id;
+  const displayResource = booking.resourceName || booking.resourceId;
 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
@@ -50,7 +51,7 @@ export default function BookingCard({ booking, onCancel, onEdit, onApprove, onRe
       <div className="booking-card-header">
         <div className="booking-resource">
           <HiOutlineLocationMarker size={18} />
-          <span className="resource-id">{booking.resourceId}</span>
+          <span className="resource-id">{displayResource}</span>
         </div>
         <span className={`booking-status-badge ${status.className}`}>
           {status.label}
@@ -70,6 +71,11 @@ export default function BookingCard({ booking, onCancel, onEdit, onApprove, onRe
           <HiOutlineUsers size={16} />
           <span>{booking.attendees?.length || 0} attendee(s)</span>
         </div>
+        {booking.resourceLocation && (
+          <p className="booking-requester">
+            Location: <strong>{booking.resourceLocation}</strong>
+          </p>
+        )}
         {isAdmin && (
           <p className="booking-requester">
             Requested by: <strong>{booking.userName || booking.userId || 'Unknown user'}</strong>
@@ -109,6 +115,15 @@ export default function BookingCard({ booking, onCancel, onEdit, onApprove, onRe
           {/* User actions: cancel own pending/approved bookings */}
           {!isAdmin && (booking.status === 'PENDING' || booking.status === 'APPROVED') && (
             <>
+              {booking.status === 'APPROVED' && typeof onShowQr === 'function' && (
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => onShowQr(booking)}
+                  id={`show-qr-${booking.id}`}
+                >
+                  Show QR Code
+                </button>
+              )}
               <button
                 className="btn btn-edit-booking"
                 onClick={() => onEdit(booking)}

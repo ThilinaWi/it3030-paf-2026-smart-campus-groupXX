@@ -102,19 +102,21 @@ export default function Navbar() {
                     <HiOutlineCog size={16} />
                     <span>Settings</span>
                   </Link>
+                  <button
+                    type="button"
+                    className="user-profile-menu-item"
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                      logout();
+                    }}
+                    role="menuitem"
+                  >
+                    <HiOutlineLogout size={16} />
+                    <span>Logout</span>
+                  </button>
                 </div>
               )}
             </div>
-            <button
-              type="button"
-              className="logout-btn"
-              onClick={logout}
-              id="logout-btn"
-              title="Logout"
-              aria-label="Logout"
-            >
-              <HiOutlineLogout size={18} />
-            </button>
           </div>
         </div>
       </nav>
