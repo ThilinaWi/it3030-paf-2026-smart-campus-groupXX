@@ -20,9 +20,10 @@ const ResourceCard = ({ resource, isAdmin, onDelete, onToggleStatus }) => {
             case 'OUT_OF_SERVICE': return '🔴';
             case 'MAINTENANCE': return '🟡';
             default: return '⚪';
+            
         }
     };
-    
+
 
     return (
         <div style={styles.card}>
