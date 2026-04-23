@@ -9,8 +9,9 @@ import java.util.List;
 
 @Repository
 public interface ResourceRepository extends MongoRepository<Resource, String> {
+    
     boolean existsByName(String name);
     List<Resource> findByNameContainingIgnoreCase(String name);
     List<Resource> findByType(ResourceType type);
-    
+
 }
