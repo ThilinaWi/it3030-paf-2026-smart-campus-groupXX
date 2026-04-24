@@ -57,12 +57,13 @@ public class ResourceController {
         return ResponseEntity.ok(resourceService.updateResourceStatus(id, dto.getIsActive()));
     }
     
+    
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteResource(@PathVariable String id) {
         resourceService.deleteResource(id);
         return ResponseEntity.noContent().build();
     }
-    
+
 
 }
