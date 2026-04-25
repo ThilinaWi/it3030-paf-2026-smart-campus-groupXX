@@ -26,5 +26,47 @@ public class UpdateIncidentRequest {
     @NotNull(message = "Priority is required")
     private TicketPriority priority;
 
+    // Default constructor
+    public UpdateIncidentRequest() {
+    }
 
+    // Getter for title
+    public String getTitle() {
+        return title;
+    }
+
+    // Setter for title
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    // Getter for description
+    public String getDescription() {
+        return description;
+    }
+
+    // Setter for description
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // Getter for category
+    public TicketCategory getCategory() {
+        return category;
+    }
+
+    // Setter for category
+    public void setCategory(TicketCategory category) {
+        this.category = category;
+    }
+
+    // Getter for priority
+    public TicketPriority getPriority() {
+        return priority;
+    }
+
+    // Setter for priority
+    public void setPriority(TicketPriority priority) {
+        this.priority = priority;
+    }
 }
