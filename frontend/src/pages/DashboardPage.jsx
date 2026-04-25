@@ -127,7 +127,7 @@ export default function DashboardPage() {
         setRoleCounts((prev) => ({ ...prev, loading: true }));
 
         if (user.role === 'USER') {
-          const [bookings, incidents] = await Promise.all([
+          const [bookingsResult, incidentsResult] = await Promise.allSettled([
             bookingService.getMyBookings(),
             incidentService.getMyIncidents(),
           ]);
@@ -135,8 +135,12 @@ export default function DashboardPage() {
           if (cancelled) return;
 
           const activeStatuses = new Set(['OPEN', 'ASSIGNED', 'IN_PROGRESS']);
-          const safeBookings = Array.isArray(bookings) ? bookings : [];
-          const safeIncidents = Array.isArray(incidents) ? incidents : [];
+          const safeBookings = bookingsResult.status === 'fulfilled' && Array.isArray(bookingsResult.value)
+            ? bookingsResult.value
+            : [];
+          const safeIncidents = incidentsResult.status === 'fulfilled' && Array.isArray(incidentsResult.value)
+            ? incidentsResult.value
+            : [];
 
           setRoleCounts({
             loading: false,
@@ -150,15 +154,19 @@ export default function DashboardPage() {
         }
 
         if (user.role === 'TECHNICIAN') {
-          const [bookings, assignedIncidents] = await Promise.all([
+          const [bookingsResult, assignedResult] = await Promise.allSettled([
             bookingService.getMyBookings(),
             incidentService.getAssignedIncidents(),
           ]);
 
           if (cancelled) return;
 
-          const safeBookings = Array.isArray(bookings) ? bookings : [];
-          const safeAssigned = Array.isArray(assignedIncidents) ? assignedIncidents : [];
+          const safeBookings = bookingsResult.status === 'fulfilled' && Array.isArray(bookingsResult.value)
+            ? bookingsResult.value
+            : [];
+          const safeAssigned = assignedResult.status === 'fulfilled' && Array.isArray(assignedResult.value)
+            ? assignedResult.value
+            : [];
 
           setRoleCounts({
             loading: false,

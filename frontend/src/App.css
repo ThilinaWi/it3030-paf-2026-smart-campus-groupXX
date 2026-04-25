@@ -2163,6 +2163,53 @@
   font-size: 12px;
 }
 
+/* Compact layout for user dashboard booking cards */
+#bookings-page .bookings-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-3);
+}
+
+.booking-card-user {
+  border-radius: var(--radius-md);
+}
+
+.booking-card-user .booking-card-header {
+  padding: var(--space-2) var(--space-3);
+}
+
+.booking-card-user .booking-card-body {
+  padding: var(--space-3);
+  gap: var(--space-2);
+}
+
+.booking-card-user .booking-meta-grid {
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+}
+
+.booking-card-user .booking-meta-item {
+  padding: 5px 8px;
+}
+
+.booking-card-user .booking-purpose-block,
+.booking-card-user .booking-requester,
+.booking-card-user .booking-admin-reason {
+  padding: 6px 8px;
+}
+
+.booking-card-user .booking-card-footer {
+  padding: var(--space-2) var(--space-3);
+}
+
+.booking-card-user .booking-created {
+  font-size: 11px;
+}
+
+.booking-card-user .booking-actions .btn {
+  min-width: 72px;
+  padding: 5px 8px;
+  font-size: 11px;
+}
+
 /* ===================== INCIDENTS MODULE ===================== */
 .incident-card {
   background: var(--white);
