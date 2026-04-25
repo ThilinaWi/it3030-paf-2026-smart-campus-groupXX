@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import GoogleLoginButton from '../components/GoogleLoginButton';
@@ -7,7 +8,86 @@ import { HiOutlineShieldCheck, HiOutlineBell, HiOutlineUserGroup } from 'react-i
  * Login page with Google Sign-In and feature highlights.
  */
 export default function LoginPage() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, loginWithPassword, register } = useAuth();
+  const [mode, setMode] = useState('login');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const isRegister = mode === 'register';
+
+  const buttonText = useMemo(() => {
+    if (submitting && isRegister) return 'Creating account...';
+    if (submitting) return 'Signing in...';
+    if (isRegister) return 'Create Account';
+    return 'Sign In';
+  }, [isRegister, submitting]);
+
+  const updateField = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const extractErrorMessage = (err, fallback) => {
+    return err?.response?.data?.message || fallback;
+  };
+
+  const handleModeChange = (nextMode) => {
+    setMode(nextMode);
+    setError('');
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+
+    const email = form.email.trim().toLowerCase();
+    const password = form.password;
+
+    if (!email || !password) {
+      setError('Email and password are required.');
+      return;
+    }
+
+    if (isRegister) {
+      const name = form.name.trim();
+      const confirmPassword = form.confirmPassword;
+      if (!name) {
+        setError('Name is required.');
+        return;
+      }
+      if (password.length < 8) {
+        setError('Password must be at least 8 characters.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError('Password and confirm password must match.');
+        return;
+      }
+    }
+
+    setSubmitting(true);
+    try {
+      if (isRegister) {
+        await register({
+          name: form.name.trim(),
+          email,
+          password,
+          confirmPassword: form.confirmPassword,
+        });
+      } else {
+        await loginWithPassword({ email, password });
+      }
+    } catch (err) {
+      setError(extractErrorMessage(err, 'Authentication failed. Please try again.'));
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -62,12 +142,97 @@ export default function LoginPage() {
         <div className="login-form-panel">
           <div className="login-form-content">
             <div className="login-header">
-              <h2>Welcome Back</h2>
-              <p>Sign in with your university Google account to continue</p>
+              <h2>{isRegister ? 'Create Your Account' : 'Welcome Back'}</h2>
+              <p>
+                {isRegister
+                  ? 'Register with email and password, then start managing campus operations.'
+                  : 'Sign in with email and password, or continue with Google.'}
+              </p>
             </div>
 
+            <div className="auth-mode-tabs" role="tablist" aria-label="Authentication mode">
+              <button
+                type="button"
+                className={`auth-mode-tab ${!isRegister ? 'active' : ''}`}
+                onClick={() => handleModeChange('login')}
+              >
+                Sign In
+              </button>
+              <button
+                type="button"
+                className={`auth-mode-tab ${isRegister ? 'active' : ''}`}
+                onClick={() => handleModeChange('register')}
+              >
+                Register
+              </button>
+            </div>
+
+            <form className="auth-form" onSubmit={handleSubmit}>
+              {isRegister && (
+                <div className="auth-form-group">
+                  <label htmlFor="auth-name">Full Name</label>
+                  <input
+                    id="auth-name"
+                    type="text"
+                    value={form.name}
+                    onChange={(e) => updateField('name', e.target.value)}
+                    placeholder="Your full name"
+                    autoComplete="name"
+                    disabled={submitting}
+                  />
+                </div>
+              )}
+
+              <div className="auth-form-group">
+                <label htmlFor="auth-email">Email</label>
+                <input
+                  id="auth-email"
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => updateField('email', e.target.value)}
+                  placeholder="you@campus.edu"
+                  autoComplete="email"
+                  disabled={submitting}
+                />
+              </div>
+
+              <div className="auth-form-group">
+                <label htmlFor="auth-password">Password</label>
+                <input
+                  id="auth-password"
+                  type="password"
+                  value={form.password}
+                  onChange={(e) => updateField('password', e.target.value)}
+                  placeholder="Enter your password"
+                  autoComplete={isRegister ? 'new-password' : 'current-password'}
+                  disabled={submitting}
+                />
+              </div>
+
+              {isRegister && (
+                <div className="auth-form-group">
+                  <label htmlFor="auth-confirm-password">Confirm Password</label>
+                  <input
+                    id="auth-confirm-password"
+                    type="password"
+                    value={form.confirmPassword}
+                    onChange={(e) => updateField('confirmPassword', e.target.value)}
+                    placeholder="Repeat your password"
+                    autoComplete="new-password"
+                    disabled={submitting}
+                  />
+                </div>
+              )}
+
+              {error && <p className="auth-error-message">{error}</p>}
+
+              <button type="submit" className="auth-submit-btn" disabled={submitting}>
+                {buttonText}
+              </button>
+            </form>
+
             <div className="login-divider">
-              <span>Sign in with</span>
+              <span>or continue with Google</span>
             </div>
 
             <GoogleLoginButton />

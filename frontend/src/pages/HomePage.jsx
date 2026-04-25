@@ -537,7 +537,7 @@ function Hero() {
         </p>
 
         <div className="hp-hero-btns">
-          <Link to="/login" className="hp-btn-primary">Sign In with Google →</Link>
+          <Link to="/login" className="hp-btn-primary">Sign In or Register →</Link>
           <a href="#features" className="hp-btn-ghost">See Features</a>
         </div>
 
@@ -645,11 +645,11 @@ export default function HomePage() {
           <div className="hp-cta">
             <h2 className="hp-cta-title">Ready to get started?</h2>
             <p className="hp-cta-desc">
-              Sign in with your university Google account. No setup required —
-              your role is assigned automatically.
+              Create an account with email and password, or continue with your
+              university Google account.
             </p>
             <div className="hp-cta-btns">
-              <Link to="/login" className="hp-btn-cta">Sign In with Google →</Link>
+              <Link to="/login" className="hp-btn-cta">Open Sign In Page →</Link>
             </div>
           </div>
         </div>
