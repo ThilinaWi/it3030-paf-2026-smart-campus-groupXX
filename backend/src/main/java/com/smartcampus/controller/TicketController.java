@@ -160,5 +160,15 @@ public class TicketController {
         );
     }
 
-
+    //  Get all update messages of a ticket
+    @GetMapping("/{id}/updates")
+    @PreAuthorize("hasAnyRole('USER','ADMIN','TECHNICIAN')")
+    public ResponseEntity<List<TicketUpdateLogResponse>> getTicketUpdates(
+            @PathVariable String id,
+            @AuthenticationPrincipal User user
+    ) {
+        return ResponseEntity.ok(
+                ticketService.getTicketUpdates(id, user.getId(), user.getRole())
+        );
+    }
 }
