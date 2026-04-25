@@ -46,6 +46,10 @@ public class TicketPageResponse {
         this.last = last;
     }
 
+    // Getter for ticket list
+    public List<TicketResponse> getContent() {
+        return content;
+    }
 
     // Setter for ticket list
     public void setContent(List<TicketResponse> content) {
@@ -67,14 +71,20 @@ public class TicketPageResponse {
         return size;
     }
 
-
+    // Setter for page size
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     // Getter for total elements
     public long getTotalElements() {
         return totalElements;
     }
 
-
+    // Setter for total elements
+    public void setTotalElements(long totalElements) {
+        this.totalElements = totalElements;
+    }
 
     // Getter for total pages
     public int getTotalPages() {
@@ -91,6 +101,10 @@ public class TicketPageResponse {
         return first;
     }
 
+    // Setter for first page flag
+    public void setFirst(boolean first) {
+        this.first = first;
+    }
 
     // Check if this is the last page
     public boolean isLast() {
