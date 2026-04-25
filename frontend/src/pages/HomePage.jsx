@@ -117,7 +117,7 @@ const css = `
   .hp-brand-name { font-weight: 700; font-size: .95rem; color: var(--text); letter-spacing: -.02em; }
   .hp-brand-name span { color: var(--accent); }
 
-  .hp-nav-links { display: flex; align-items: center; gap: 2px; }
+  .hp-nav-links { display: flex; align-items: center; gap: 2px; margin-left: auto; }
   .hp-nav-links a {
     font-size: .85rem; font-weight: 500; color: var(--text-3);
     padding: 6px 14px; border-radius: var(--r-xs);
@@ -489,7 +489,6 @@ function Nav() {
 
           <div className="hp-nav-cta">
             <Link to="/login" className="hp-btn-ghost">Sign In</Link>
-            <Link to="/login" className="hp-btn-primary">Get Started →</Link>
             <button
               className="hp-hamburger"
               onClick={() => setMobileOpen(o => !o)}
@@ -506,7 +505,7 @@ function Nav() {
           <a href="#features" onClick={() => setMobileOpen(false)}>Features</a>
           <div className="hp-mobile-cta">
             <Link to="/login" className="hp-btn-primary" onClick={() => setMobileOpen(false)}>
-              Get Started →
+              Sign In
             </Link>
           </div>
         </div>
