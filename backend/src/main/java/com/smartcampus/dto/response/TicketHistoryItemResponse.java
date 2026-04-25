@@ -81,7 +81,19 @@ public class TicketHistoryItemResponse {
         this.performedByName = performedByName;
     }
 
+    // Getter for performer role
+    public String getPerformedByRole() {
+        return performedByRole;
+    }
 
+    // Setter for performer role
+    public void setPerformedByRole(String performedByRole) {
+        this.performedByRole = performedByRole;
+    }
+
+    // Getter for created time
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     // Setter for created time
