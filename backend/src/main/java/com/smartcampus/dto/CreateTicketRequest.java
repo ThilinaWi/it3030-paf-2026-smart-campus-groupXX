@@ -22,7 +22,17 @@ public class CreateTicketRequest {
     @Size(min = 10, max = 1000, message = "Description must be between 10 and 1000 characters") // Must be meaningful
     private String description;
 
+    // 🔹 Priority level of the ticket
+    @NotNull(message = "Priority is required")
+    private TicketPriority priority;
 
+    // Default constructor (needed for object creation)
+    public CreateTicketRequest() {
+    }
+
+    // Getter for title
+    public String getTitle() {
+        return title;
     }
 
     // Setter for title
@@ -45,5 +55,18 @@ public class CreateTicketRequest {
         return description;
     }
 
+    // Setter for description
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    // Getter for priority
+    public TicketPriority getPriority() {
+        return priority;
+    }
+
+    // Setter for priority
+    public void setPriority(TicketPriority priority) {
+        this.priority = priority;
+    }
 }
