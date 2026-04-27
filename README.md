@@ -1,4 +1,4 @@
-# it3030-paf-2026-smart-campus-porata10
+# it3030-paf-2026-smart-campus-Prorata 10
 PAF assignment 2026-Smart campus
 
 # Smart Campus Operations Hub
